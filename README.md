@@ -1,11 +1,22 @@
 [![Open in GitPod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/manuelabarca/boilerplate_postgresql)
 
-PostgreSQL
-To get PostgreSQL for your project, you can use our dedicated PostgreSQL image built on top of gitpod/workspace-full.
+## How to login?
 
-Simply base your .gitpod.dockerfile on:
+In order to login to the database select "postgres" and use:
 
-FROM gitpod/workspace-postgres
+| property |  value            |
+| -------- | ----------------- |
+| system   |  postgres         |
+| server   |  *don't touch it* |
+| username |  gitpod           |
+| password |  gitpod           |
+| database |  postgres         |
+
+👉 Choose the **permanent login** option so next
+time you run the workspace, you'll be able to login with just one click.
+
+## PostgreSQL
+
 
 This will give you an auto-starting PostgreSQL server (it should auto-start every time you open a new Terminal), plus a few utility scripts that you can run in a Terminal or in a .gitpod.yml command:
 
