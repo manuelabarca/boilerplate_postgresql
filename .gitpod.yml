@@ -1,6 +1,5 @@
-# .gitpod.yml
 image:
-  file: .gitpod.Dockerfile
+  file: .gitpod.dockerfile
   
 ports:
   - port: 3000
