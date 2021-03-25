@@ -1,3 +1,5 @@
+[![Open in GitPod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/manuelabarca/boilerplate_postgresql)
+
 PostgreSQL
 To get PostgreSQL for your project, you can use our dedicated PostgreSQL image built on top of gitpod/workspace-full.
 
