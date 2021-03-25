@@ -1,3 +1,5 @@
+FROM gitpod/workspace-postgres
+
 ###
 ### APACHE SETUP
 ###
