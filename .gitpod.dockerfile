@@ -1,27 +1,13 @@
 FROM gitpod/workspace-postgres
 
-###
-### APACHE SETUP
-###
-
-# Hack Apache's Config
 RUN sed -i 's/ServerRoot ${GITPOD_REPO_ROOT}/ServerRoot \/home\/gitpod\/.apache/g' /etc/apache2/apache2.conf
 RUN sed -i 's/${GITPOD_REPO_ROOT}\/${APACHE_DOCROOT_IN_REPO}/\/home\/gitpod\/.apache\/public/g' /etc/apache2/apache2.conf
 RUN sed -i 's/8001/8008/g' /etc/apache2/apache2.conf
 
-
-
-###
-### ADMINER SETUP
-###
-
-# Download Adminer
 RUN mkdir -p ~/.apache/public/plugins
 RUN wget -O ~/.apache/public/adminer-4.7.6-en.php https://github.com/vrana/adminer/releases/download/v4.7.6/adminer-4.7.6-en.php
 RUN wget -O ~/.apache/public/plugins/plugin.php https://raw.githubusercontent.com/vrana/adminer/master/plugins/plugin.php
 
-# Create the runner file with plugins
-# (this is intended to be open to extensions by adding plugins)
 RUN bash -c "echo $'<?php\n\
 \n\
 function adminer_object() { \n\
@@ -39,16 +25,8 @@ function adminer_object() { \n\
 \n\
 include \"./adminer-4.7.6-en.php\";' > ~/.apache/public/index.php"
 
-# Give proper execution rights to the PHP files
 RUN chmod -R u+rwX,go+rX,go-w ~/.apache/public
 
-
-
-###
-### WORKSPACE SETUP
-###
-
-# Creates the `apache_start` command:
 ENV PATH="$PATH:$HOME/.apache-bin"
 RUN mkdir -p ~/.apache-bin \
   && printf "#!/bin/bash\napachectl start" > ~/.apache-bin/apache_start \
@@ -56,6 +34,4 @@ RUN mkdir -p ~/.apache-bin \
   && printf "#!/bin/bash\napachectl restart" > ~/.apache-bin/apache_restart \
   && chmod +x ~/.apache-bin/*
 
-# Autostart Apache
-# (hack inspired by the postgres image)
 RUN printf "\n# Auto-start Apache2 server.\napache_start > /dev/null\n" >> ~/.bashrc
